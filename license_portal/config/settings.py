@@ -28,6 +28,11 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+EMAIL_BACKEND =  'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'localhost'# Nombre del servicio en el archivo docker-compose.yml
+EMAIL_PORT = 1025
+EMAIL_USE_TLS = False 
+EMAIL_USE_SSL = False 
 
 # Application definition
 
@@ -38,7 +43,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'licenses'
+    'licenses',
+    'django_cron',
+    'rest_framework'
 ]
 
 MIDDLEWARE = [
@@ -81,7 +88,7 @@ DATABASES = {
         'NAME': os.getenv('POSTGRES_HOST', 'licenses'),
         'USER': os.getenv('POSTGRES_USER', 'licenses'),
         'PASSWORD': os.getenv('POSTGRES_USER', 'licenses'),
-        'HOST': os.getenv('POSTGRES_HOST', 'postgres'),
+        'HOST': os.getenv('POSTGRES_HOST', 'localhost'),
         'PORT': int(os.getenv('POSTGRES_PORT', 5432)),
     }
 }
@@ -105,20 +112,23 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# Django cron jobs
+# DJANGO_CRON_CLASSES = [
+#     'licences.cron.MiTarea',
+# ]
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.10/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/Guatemala'
 
 USE_I18N = True
 
 USE_L10N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/

@@ -9,7 +9,15 @@ services:
 
   postgres:
     image: 'postgres:13'
+    ports:
+      - '5432:5432'
     environment:
      POSTGRES_USER: 'licenses'
      POSTGRES_PASSWORD: 'licenses'
      POSTGRES_DB: 'licenses'
+  mailhog:
+    image: mailhog/mailhog
+    ports:
+      - "1025:1025"  # Puerto SMTP para el servidor de correo de desarrollo
+      - "8025:8025"  # Puerto web para la interfaz de MailHog
+  
