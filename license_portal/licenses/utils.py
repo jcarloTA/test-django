@@ -31,7 +31,7 @@ def getLisensesByDateFilter(client, date_filter):
     una_semana_despues = hoy + timedelta(days=7)
 
     if date_filter == "4_meses":
-        return License.objects.all()
+        return License.objects.filter(expiration_datetime=cuatro_meses_despues)
     elif date_filter == "1_mes_lunes":
         return License.objects.filter(
             expiration_datetime=un_mes_despues,
@@ -52,7 +52,7 @@ def sendLisensesByEmail(client, lisenses, mensaje):
 
     subject = mensaje
     message = MIMEText(tabla_html, 'html')
-    from_email = 'afinidata@gmail.com'  # Reemplaza con tu dirección de correo
+    from_email = 'noreply@email.com'  # Reemplaza con tu dirección de correo
     recipient_list = [client.poc_contact_email]  # Reemplaza con la dirección de correo del destinatario
     
     send_mail(subject, '', from_email, recipient_list,  html_message=str(tabla_html), fail_silently=False)
